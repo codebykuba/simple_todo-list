@@ -60,7 +60,7 @@
                 
                 <form class="add" action="Includes/add_task.inc.php" method="POST">
                     
-                    <label for="nazwa">Treść zadania</label>
+                    <label for="nazwa">Podaj treść zadania</label>
                     <input type="text" id="nazwa" name="nazwa" placeholder="Treść zadania..."> 
                 
                     <label for="priorytet">Priorytet zadania</label>
@@ -76,6 +76,18 @@
                     </div>
                 </form>
             
+            </div>
+
+            <?php 
+                $view->setErrors();
+            ?>
+
+            <div class="errors">
+
+                <?php 
+                    $view->showErrors();
+                ?>
+
             </div>
 
         </div>

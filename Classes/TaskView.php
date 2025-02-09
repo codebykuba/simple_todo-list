@@ -65,6 +65,12 @@ Class TaskView {
     }
 
     public function showErrors() {
+        if(isset($this->errors['empty'])) {
+            echo '<p class="error">' . htmlspecialchars($this->errors['empty']) . '</p>';
+        }
 
+        if(isset($this->errors['too_long'])) {
+            echo '<p class="error">' . htmlspecialchars($this->errors['too_long']) . '</p>';
+        }
     }
 }
