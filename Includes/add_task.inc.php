@@ -27,12 +27,18 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
             if(isset($errors) && !empty($errors)) {
                 
                 $_SESSION["errors"] = $errors;
+
+                //Dane do zapisania w polach w przypadku blędu
+                $_SESSION['data'] = array(
+                    'nazwa' => $nazwa,
+                    'priorytet' => $priorytet
+                );
+
                 header("Location: ../index.php");
                 die();
             }
 
     //Przechwycenie listy z sesji i jej wyczyszczenie
-    $session = new ConfigSession();
     $tasks = $_SESSION['tasks'];
     unset($_SESSION['tasks']);
 

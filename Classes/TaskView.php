@@ -6,9 +6,15 @@ Class TaskView {
 
     private $tasks;
     private $errors = NULL;
+    private $data = NULL;
 
     public function __construct($tasks) {
         $this->tasks = $tasks;
+
+        if(isset($_SESSION['data'])) {
+            $this->data = $_SESSION['data'];
+            unset($_SESSION['data']);
+        }
     }
 
     public function setErrors() {
@@ -72,5 +78,74 @@ Class TaskView {
         if(isset($this->errors['too_long'])) {
             echo '<p class="error">' . htmlspecialchars($this->errors['too_long']) . '</p>';
         }
+    }
+
+    public function showForm() {
+        echo '<div class="form">'; 
+            echo '<form class="add" action="Includes/add_task.inc.php" method="POST">';
+                                
+                //Pole nazwa zadania
+                echo '<label for="nazwa">Podaj treść zadania</label>';
+
+                    if(isset($this->data['nazwa'])) {
+                        echo '<input type="text" id="nazwa" name="nazwa" placeholder="Treść zadania..." value="' . htmlspecialchars($this->data['nazwa']) . '">';
+                    }
+                    else {
+                        echo '<input type="text" id="nazwa" name="nazwa" placeholder="Treść zadania...">';
+                    }
+
+                //Pole priorytetu zadania
+                echo '<label for="priorytet">Priorytet zadania</label>';
+                
+                    if(isset($this->data['priorytet'])) {
+                        
+                        switch($this->data['priorytet']) {
+                            case 'wysoki':
+                                echo '<select id="priorytet" name="priorytet">';
+                                    echo '<option value="none">Wybierz opcję...</option>';
+                                    echo '<option value="wysoki" selected>Wysoki</option>';
+                                    echo '<option value="średni">Średni</option>';
+                                    echo '<option value="niski">Niski</option>';
+                                echo '</select>';
+                            break;
+                            case 'średni':
+                                echo '<select id="priorytet" name="priorytet">';
+                                    echo '<option value="none">Wybierz opcję...</option>';
+                                    echo '<option value="wysoki">Wysoki</option>';
+                                    echo '<option value="średni" selected>Średni</option>';
+                                    echo '<option value="niski">Niski</option>';
+                                echo '</select>';
+                            break;
+                            case 'niski':
+                                echo '<select id="priorytet" name="priorytet">';
+                                    echo '<option value="none">Wybierz opcję...</option>';
+                                    echo '<option value="wysoki">Wysoki</option>';
+                                    echo '<option value="średni">Średni</option>';
+                                    echo '<option value="niski" selected>Niski</option>';
+                                echo '</select>';
+                            break;
+                            default:
+                                echo '<select id="priorytet" name="priorytet">';
+                                    echo '<option value="none">Wybierz opcję...</option>';
+                                    echo '<option value="wysoki">Wysoki</option>';
+                                    echo '<option value="średni">Średni</option>';
+                                    echo '<option value="niski">Niski</option>';
+                                echo '</select>';
+                        }
+                    }
+                    else {
+                        echo '<select id="priorytet" name="priorytet">';
+                            echo '<option value="none">Wybierz opcję...</option>';
+                            echo '<option value="wysoki">Wysoki</option>';
+                            echo '<option value="średni">Średni</option>';
+                            echo '<option value="niski">Niski</option>';
+                        echo '</select>';
+                    }
+        
+                echo '<div class="submit_row">';
+                    echo '<button class="sub" type="submit">Dodaj zadanie</button>';
+                echo '</div>';
+            echo '</form>';       
+        echo '</div>';
     }
 }

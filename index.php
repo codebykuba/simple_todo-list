@@ -56,27 +56,9 @@
 
             <h3>Dodaj nowe zadanie</h3>
 
-            <div class="form">
-                
-                <form class="add" action="Includes/add_task.inc.php" method="POST">
-                    
-                    <label for="nazwa">Podaj treść zadania</label>
-                    <input type="text" id="nazwa" name="nazwa" placeholder="Treść zadania..."> 
-                
-                    <label for="priorytet">Priorytet zadania</label>
-                    <select id="priorytet" name="priorytet">
-                        <option value="none">Wybierz opcję...</option>
-                        <option value="wysoki">Wysoki</option>
-                        <option value="średni">Średni</option>
-                        <option value="niski">Niski</option>
-                    </select>
-
-                    <div class="submit_row">
-                        <button class="sub" type="submit">Dodaj zadanie</button>
-                    </div>
-                </form>
-            
-            </div>
+            <?php 
+                $view->showForm();
+            ?>
 
             <?php 
                 $view->setErrors();
