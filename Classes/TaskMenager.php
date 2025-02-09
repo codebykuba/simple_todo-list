@@ -13,15 +13,7 @@ Class TaskMenager {
         $this->new_task = $new_task;
         $this->tasks[] = $this->new_task;
 
-        //Zakodowanie listy wraz z nowym zadaniem
-        try {
-            $json_data = json_encode($this->tasks, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-        } 
-        catch (JsonException $e) {
-            die($e->getMessage());
-        }
-
-        file_put_contents(__DIR__ . '/../tasks.json', $json_data);
+        $this->saveInFile();
     }
 
     public function deleteTask($id) {
@@ -38,15 +30,7 @@ Class TaskMenager {
 
             $this->tasks = $new_tasks;
 
-        //Zaladowanie listy po usunieciu danego zadania
-        try {
-            $json_data = json_encode($this->tasks, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-        } 
-        catch (JsonException $e) {
-            die($e->getMessage());
-        }
-
-        file_put_contents(__DIR__ . '/../tasks.json', $json_data);
+        $this->saveInFile();
     }
     
     public function updateTask($id) {
@@ -58,7 +42,10 @@ Class TaskMenager {
             $this->tasks[($id-1)]['status'] = 'w trakcie';
         }
 
-        //Zaladowanie listy po zmianie statusu zadania
+        $this->saveInFile();
+    }
+
+    private function saveInFile() {
         try {
             $json_data = json_encode($this->tasks, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         } 
